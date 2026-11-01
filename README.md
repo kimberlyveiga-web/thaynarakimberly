@@ -6,6 +6,12 @@ Projeto Integrador — Engenharia de Software I — Situação-Problema 1
 
 ## Sobre o projeto
 
+## Tecnologias Planejadas
+- **Front-end:** HTML, CSS, JavaScript
+- **Back-end:** Python (com framework Flask)
+- **Arquitetura:** Padrão MVC (Model-View-Controller)
+- **Banco de Dados:** PostgreSQL
+  
 Sistema web responsivo para loja virtual de cupcakes gourmet, com dois perfis
 de acesso (Cliente e Administrador). Escopo priorizado para o núcleo de valor:
 vitrine → carrinho → pedido → acompanhamento + painel administrativo.
