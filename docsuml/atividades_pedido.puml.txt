@@ -1,0 +1,45 @@
+@startuml atividades_pedido
+start
+:Cliente acessa a vitrine;
+:Navega por categorias;
+:Seleciona produto;
+:Adiciona ao carrinho;
+repeat
+  :Continuar comprando?;
+repeat while (sim) is (sim) not (não)
+:Vai para o carrinho;
+:Revisa itens;
+if (Itens válidos e disponíveis?) then (não)
+  :Exibir mensagem E02 (indisponível);
+  stop
+else (sim)
+endif
+if (Cliente autenticado?) then (não)
+  :Exibir tela de login;
+  if (Login bem-sucedido?) then (não)
+    :Exibir mensagem E01;
+    stop
+  else (sim)
+  endif
+else (sim)
+endif
+:Informa endereço de entrega;
+if (CEP válido?) then (não)
+  :Exibir mensagem E04;
+  stop
+else (sim)
+endif
+:Escolhe forma de pagamento;
+:Confirma pedido;
+:Sistema calcula total;
+:Processa pagamento (simulado);
+if (Pagamento aprovado?) then (sim)
+  :Registrar pedido como PAGO;
+  :Notificar cliente;
+  :Exibir confirmação;
+else (não)
+  :Registrar pedido como AGUARDANDO_PAGAMENTO;
+  :Exibir mensagem E03;
+endif
+stop
+@enduml

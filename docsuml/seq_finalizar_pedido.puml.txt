@@ -1,0 +1,32 @@
+@startuml seq_finalizar_pedido
+actor Cliente
+boundary "Interface Web" as UI
+control PedidoController
+control PagamentoService
+entity PedidoRepository
+database "Banco de Dados" as BD
+control NotificacaoService
+Cliente -> UI : preenche endereço e pagamento
+UI -> PedidoController : finalizarPedido(dados)
+PedidoController -> PedidoController : validarSessao()
+PedidoController -> PedidoRepository : calcularTotal(itens)
+PedidoRepository -> BD : buscarPrecosProdutos()
+BD --> PedidoRepository : preços
+PedidoRepository --> PedidoController : valorTotal
+PedidoController -> PagamentoService : processar(valor, formaPagamento)
+PagamentoService --> PedidoController : resultadoPagamento
+alt Pagamento aprovado
+  PedidoController -> PedidoRepository : salvar(pedido, status=PAGO)
+  PedidoRepository -> BD : INSERT pedido + itens
+  BD --> PedidoRepository : idPedido
+  PedidoRepository --> PedidoController : pedido
+  PedidoController -> NotificacaoService : notificar(cliente, "Pedido confirmado")
+  PedidoController --> UI : sucesso(idPedido)
+  UI --> Cliente : tela de confirmação
+else Pagamento recusado
+  PedidoController -> PedidoRepository : salvar(pedido, status=AGUARDANDO_PAGAMENTO)
+  PedidoRepository -> BD : INSERT pedido
+  PedidoController --> UI : erro "Pagamento recusado" (E03)
+  UI --> Cliente : mensagem de erro
+end
+@enduml

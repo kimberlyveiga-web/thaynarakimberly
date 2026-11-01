@@ -1,0 +1,75 @@
+@startuml classes
+skinparam classAttributeIconSize 0
+abstract class Usuario {
+  - id: int
+  - nome: String
+  - email: String
+  - senhaHash: String
+  - telefone: String
+  - dataCadastro: Date
+  - tipo: TipoUsuario
+  + autenticar(email, senha): boolean
+  + alterarSenha(novaSenha): void
+}
+class Cliente {
+  - cpf: String
+  - logradouro: String
+  - numero: String
+  - complemento: String
+  - bairro: String
+  - cidade: String
+  - uf: String
+  - cep: String
+  + visualizarPedidos(): List<Pedido>
+  + finalizarPedido(): Pedido
+}
+class Administrador {
+  - matricula: String
+  + gerenciarProduto(produto): void
+  + atualizarStatusPedido(pedido, status): void
+}
+class Categoria {
+  - id: int
+  - nome: String
+  - ativa: boolean
+  + listarProdutos(): List<Produto>
+}
+class Produto {
+  - id: int
+  - nome: String
+  - descricao: String
+  - preco: BigDecimal
+  - disponivel: boolean
+  - imagemUrl: String
+  + estaDisponivel(): boolean
+  + aplicarDesconto(percentual): void
+}
+class Pedido {
+  - id: int
+  - dataPedido: DateTime
+  - status: StatusPedido
+  - valorTotal: BigDecimal
+  - formaPagamento: String
+  - statusPagamento: String
+  + calcularTotal(): BigDecimal
+  + alterarStatus(novoStatus): void
+  + cancelar(): void
+}
+class ItemPedido {
+  - id: int
+  - quantidade: int
+  - precoUnitario: BigDecimal
+  - subtotal: BigDecimal
+  + calcularSubtotal(): BigDecimal
+}
+enum TipoUsuario { CLIENTE \n ADMINISTRADOR }
+enum StatusPedido { AGUARDANDO_PAGAMENTO \n PAGO \n EM_PRODUCAO \n ENVIADO \n ENTREGUE \n CANCELADO }
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+Categoria "1" -- "0..*" Produto      : possui >
+Cliente   "1" -- "0..*" Pedido       : realiza >
+Pedido    "1" *-- "1..*" ItemPedido  : contém
+Produto   "1" -- "0..*" ItemPedido   : referenciado >
+Usuario ..> TipoUsuario
+Pedido  ..> StatusPedido
+@enduml

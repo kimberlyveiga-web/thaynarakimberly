@@ -1,0 +1,26 @@
+@startuml seq_atualizar_status
+actor Administrador
+boundary "Painel Admin" as UI
+control PedidoController
+entity PedidoRepository
+database "Banco de Dados" as BD
+control NotificacaoService
+Administrador -> UI : seleciona pedido e novo status
+UI -> PedidoController : atualizarStatus(idPedido, novoStatus)
+PedidoController -> PedidoController : validarSessao() e autorização
+PedidoController -> PedidoRepository : buscar(idPedido)
+PedidoRepository -> BD : SELECT pedido
+BD --> PedidoRepository : pedido
+PedidoRepository --> PedidoController : pedido
+alt transição válida
+  PedidoController -> PedidoRepository : atualizarStatus(idPedido, novoStatus)
+  PedidoRepository -> BD : UPDATE pedido SET status
+  BD --> PedidoRepository : ok
+  PedidoController -> NotificacaoService : notificar(cliente, novoStatus)
+  PedidoController --> UI : sucesso
+  UI --> Administrador : confirmação
+else transição inválida
+  PedidoController --> UI : erro "Transição inválida" (E05)
+  UI --> Administrador : mensagem de erro
+end
+@enduml

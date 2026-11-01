@@ -1,0 +1,42 @@
+@startuml casos_de_uso
+left to right direction
+skinparam packageStyle rectangle
+actor "Usuário" as Usuario
+actor "Cliente" as Cliente
+actor "Administrador" as Admin
+Usuario <|-- Cliente
+Usuario <|-- Admin
+rectangle "Sistema Loja de Cupcakes Gourmet" {
+  usecase "UC01\nCadastrar-se" as UC01
+  usecase "UC02\nAutenticar-se" as UC02
+  usecase "UC03\nNavegar pela vitrine" as UC03
+  usecase "UC04\nConsultar detalhe do produto" as UC04
+  usecase "UC05\nGerenciar carrinho" as UC05
+  usecase "UC06\nFinalizar pedido" as UC06
+  usecase "UC07\nAcompanhar pedido" as UC07
+  usecase "UC08\nGerenciar categorias" as UC08
+  usecase "UC09\nGerenciar produtos" as UC09
+  usecase "UC10\nGerenciar pedidos" as UC10
+  usecase "Validar dados" as UCVal
+  usecase "Validar credenciais" as UCCred
+  usecase "Calcular total" as UCCalc
+  usecase "Cancelar pedido" as UCCanc
+}
+Cliente --> UC01
+Cliente --> UC02
+Cliente --> UC03
+Cliente --> UC04
+Cliente --> UC05
+Cliente --> UC06
+Cliente --> UC07
+Admin --> UC02
+Admin --> UC08
+Admin --> UC09
+Admin --> UC10
+UC01 ..> UCVal  : <<include>>
+UC02 ..> UCCred : <<include>>
+UC06 ..> UC02   : <<include>>
+UC06 ..> UCCalc : <<include>>
+UCCanc ..> UC06 : <<extend>>
+UC09 ..> UC08   : <<include>>
+@enduml
