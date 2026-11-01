@@ -28,3 +28,4 @@ projeto-cupcakes-gourmet/
     ├── script_fisico.sql
     ├── seed.sql
     └── dicionario_dados.md
+![Diagrama de Atividades](https://github.com/kimberlyveiga-web/thaynarakimberly/blob/main/docsuml/atividades_pedido.puml.png)
