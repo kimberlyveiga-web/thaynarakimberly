@@ -33,4 +33,4 @@ projeto-cupcakes-gourmet/
 ## Diagramas UML
 
 ### Diagrama de Atividades
-![Diagrama de Atividades](https://raw.githubusercontent.com/kimberlyveiga-web/thynarakimberly/main/docs/uml/atividades_pedido.png)
+![Diagrama de Atividades](https://raw.githubusercontent.com/kimberlyveiga-web/thynarakimberly/main/docs/uml/atividades_pedido.puml)
