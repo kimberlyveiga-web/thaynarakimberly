@@ -9,11 +9,28 @@
     <header><h1>🧁 Cupcakes Gourmet</h1></header>
     <main>
         <h2>Bem-vindo à nossa loja!</h2>
-        <p>Sistema funcionando em Python (Flask) com padrão MVC!</p>
+        <p>Sistema atualizado com melhorias solicitadas nos testes de qualidade (Situação 3).</p>
+        
         <div class="cardapio">
-            <div class="cupcake"><h3>Cupcake de Baunilha</h3><p>R$ 8,50</p><button>Comprar</button></div>
-            <div class="cupcake"><h3>Cupcake de Chocolate</h3><p>R$ 9,00</p><button>Comprar</button></div>
+            <div class="cupcake">
+                <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=150&q=80" alt="Cupcake de Baunilha">
+                <h3>Cupcake de Baunilha</h3>
+                <p>R$ 8,50</p>
+                <button onclick="adicionarCarrinho('Baunilha')">Comprar</button>
+            </div>
+            <div class="cupcake">
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=150&q=80" alt="Cupcake de Chocolate">
+                <h3>Cupcake de Chocolate</h3>
+                <p>R$ 9,00</p>
+                <button onclick="adicionarCarrinho('Chocolate')">Comprar</button>
+            </div>
         </div>
     </main>
+
+    <script>
+        function adicionarCarrinho(sabor) {
+            alert("O Cupcake de " + sabor + " foi adicionado ao carrinho com sucesso!");
+        }
+    </script>
 </body>
 </html>
