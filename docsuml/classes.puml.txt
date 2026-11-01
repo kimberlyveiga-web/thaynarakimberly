@@ -1,5 +1,6 @@
 @startuml classes
 skinparam classAttributeIconSize 0
+
 abstract class Usuario {
   - id: int
   - nome: String
@@ -11,6 +12,7 @@ abstract class Usuario {
   + autenticar(email, senha): boolean
   + alterarSenha(novaSenha): void
 }
+
 class Cliente {
   - cpf: String
   - logradouro: String
@@ -23,17 +25,20 @@ class Cliente {
   + visualizarPedidos(): List<Pedido>
   + finalizarPedido(): Pedido
 }
+
 class Administrador {
   - matricula: String
   + gerenciarProduto(produto): void
   + atualizarStatusPedido(pedido, status): void
 }
+
 class Categoria {
   - id: int
   - nome: String
   - ativa: boolean
   + listarProdutos(): List<Produto>
 }
+
 class Produto {
   - id: int
   - nome: String
@@ -44,6 +49,7 @@ class Produto {
   + estaDisponivel(): boolean
   + aplicarDesconto(percentual): void
 }
+
 class Pedido {
   - id: int
   - dataPedido: DateTime
@@ -55,6 +61,7 @@ class Pedido {
   + alterarStatus(novoStatus): void
   + cancelar(): void
 }
+
 class ItemPedido {
   - id: int
   - quantidade: int
@@ -62,14 +69,27 @@ class ItemPedido {
   - subtotal: BigDecimal
   + calcularSubtotal(): BigDecimal
 }
-enum TipoUsuario { CLIENTE \n ADMINISTRADOR }
-enum StatusPedido { AGUARDANDO_PAGAMENTO \n PAGO \n EM_PRODUCAO \n ENVIADO \n ENTREGUE \n CANCELADO }
+
+enum TipoUsuario {
+  CLIENTE
+  ADMINISTRADOR
+}
+
+enum StatusPedido {
+  AGUARDANDO_PAGAMENTO
+  PAGO
+  EM_PRODUCAO
+  ENVIADO
+  ENTREGUE
+  CANCELADO
+}
+
 Usuario <|-- Cliente
 Usuario <|-- Administrador
-Categoria "1" -- "0..*" Produto      : possui >
-Cliente   "1" -- "0..*" Pedido       : realiza >
-Pedido    "1" *-- "1..*" ItemPedido  : contém
-Produto   "1" -- "0..*" ItemPedido   : referenciado >
+Categoria "1" -- "0..*" Produto : possui >
+Cliente   "1" -- "0..*" Pedido  : realiza >
+Pedido    "1" *-- "1..*" ItemPedido : contém
+Produto   "1" -- "0..*" ItemPedido  : referenciado >
 Usuario ..> TipoUsuario
 Pedido  ..> StatusPedido
 @enduml
